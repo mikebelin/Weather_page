@@ -1,0 +1,26 @@
+h1
+{
+color: orange;	
+}
+body{
+	background-image: url("images/background.jpg");
+}
+
+button{
+  background-color: orange;
+  border-style: solid;
+  border-color: maroon;
+  display: inline-block;
+  margin: 0 10px 0 0;
+  padding: 15px 45px;
+  font-size: 48px;
+  font-family: serif;
+}
+div{
+  color: orange;
+  font-size: 30px;
+  background-position: left;
+  background-color: transparent;
+  width:248px;
+  padding: 20px 50px; 
+}

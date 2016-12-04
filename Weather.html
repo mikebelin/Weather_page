@@ -1,0 +1,51 @@
+ <html>
+ <head>
+ <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+ <h1>Project 2: Weather App by Nikolas Kapali and Mikhael Belisnky</h1>
+ <button onClick="get()">Today's weather</button>
+ <div id="results"></div>
+ </body>
+ </html>
+ <script type="text/javascript">
+ function get()
+ {
+ var xmlhttp = new XMLHttpRequest (); //creating an object to exchange data with a server behind the scenes. This means that it is possible to update parts of a web page, without reloading the whole page.
+		//    	   /*("Method= GET or POST", "URL" ..........................................................................................  async= "true,asynchoronus" "flase,synchoronus")*/
+	 xmlhttp.open("GET","http://api.openweathermap.org/data/2.5/weather?q=Helsinki&units=metric&APPID=b17372301cf7caeb8325ecea2e5537b2&mode=JSON",true);/*Specifies the type of the request,getting the document and making it visible 
+		for the user, Open = HTML DOM object method (actions that can be performed in objects) & (properties = value associated with the JAVA object), true means visible to the users*/
+	 xmlhttp.send();//Send a request to server
+	
+	/* 
+	 //3 important properties of XmlHttpRequest object: 1)onreadystatechange (can store a funtion or function name to be called automatically each time readyState propertt changes) 2) readyState (0 to 4) and 3)status (200=ok or 404=page not found) 
+	 xmlhttp.onreadystatechange = function(){ // specify what will happen when the server response is ready to be processed 
+	 if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+		{
+			document.getElementById("results").innerHTML = xmlhttp.responseText; //Server Response, To get the response from a server, we use the responseText or responseXML property of the XMLHttpRequest object
+		}
+	 } */
+	 
+	 xmlhttp.onreadystatechange = function()
+	 {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
+			{
+				var xmlDoc = xmlhttp.responseText;
+				/*
+				var weather = xmlDoc.getElementsByTagName("country");
+				
+				for(i = 0; i < weather.length; i++) //.length array property returns the length of an array
+					{
+						country = weather[i].childNodes[0].nodeValue;
+						document.getElementById("results").innerHTML += country;
+						
+					}
+					*/
+					
+					var obj = JSON.parse(xmlDoc);
+					document.getElementById("results").innerHTML = obj.weather[0].main+"<br>"+"Temperature: "+obj.main.temp+"C"+"<br>"+"Wind speed: "+obj.wind.speed+"<br>"+"Humidity: "+obj.main.humidity+"<br>"+obj.name+", "+obj.sys.country;
+			}			
+	 }
+}
+ </script>
+ 
